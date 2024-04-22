@@ -12,23 +12,13 @@ on:
 jobs:
   generator:
     runs-on: ubuntu-latest
-    if: >
-      github.event_name == 'pull_request' &&
-      github.event.pull_request.merged == false &&
-      startsWith(github.head_ref, 'release/')
     steps:
-      - run: echo "The head of this PR starts with 'release/'"
-      - uses: actions/checkout@v3
-      - uses: 94dreamer/auto-release@develop
-        id: changelog
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Add comment
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ${{ steps.changelog.outputs.changelog }}
+      - run: |
+           echo {{ github.event.issue.pull_request.url }}
+           echo ${{ github.event.sender.login }}
+           echo ${{ github.event.issue.user.login }}
+           echo ${{ github.event.comment.body }}
+           
   comment_add_log:
     runs-on: ubuntu-latest
     if: >
