@@ -18,6 +18,7 @@ jobs:
            echo ${{ github.event.sender.login }}
            echo ${{ github.event.issue.user.login }}
            echo ${{ github.event.comment.body }}
+          echo ${{ github.event }}
            
   comment_add_log:
     runs-on: ubuntu-latest
